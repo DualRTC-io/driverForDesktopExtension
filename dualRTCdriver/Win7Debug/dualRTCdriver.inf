@@ -1,0 +1,121 @@
+; extension.inf
+;
+; Installation inf for the extension graphics adapter.
+;
+;
+
+[Version]
+Signature="$CHICAGO$"
+Provider=%DualRTC%
+ClassGUID={4D36E968-E325-11CE-BFC1-08002BE10318}
+Class=Display
+DriverVer=11/17/2015,22.44.14.95
+
+[DestinationDirs]
+DefaultDestDir   = 12
+
+;
+; Driver information
+;
+
+[Manufacturer]
+%DualRTC%   = extension.Mfg
+
+[extension.Mfg]
+%extension% = extension, DualRTC_Desktop_Extension_Driver
+
+;
+; General installation section
+;
+
+[extension]
+CopyFiles=extension.Miniport
+
+;
+; File sections
+;
+
+[extension.Miniport]
+extension.sys
+
+
+;
+; Service Installation
+;
+
+[extension.Services]
+AddService = extension, 0x00000002, extension_Service_Inst, extension_EventLog_Inst
+
+[extension_Service_Inst]
+
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 1                  ; SERVICE_SYSTEM_START
+ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
+LoadOrderGroup = Video
+ServiceBinary  = %12%\extension.sys
+
+[extension_EventLog_Inst]
+AddReg = extension_EventLog_AddReg
+
+[extension_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\extension.sys"
+HKR,,TypesSupported,0x00010001,7
+
+
+;
+; Software Installation
+;
+
+[extension.SoftwareSettings]
+AddReg = extension_SoftwareDeviceSettings
+
+[extension_SoftwareDeviceSettings]
+HKR,, extensionDriver,                %REG_DWORD%,    1
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, extension
+HKR,, VgaCompatible,               %REG_DWORD%,    0
+HKR,, Attach.ToDesktop,            %REG_DWORD%,    1
+
+[extension.OpenGLSoftwareSettings]
+AddReg = extension_OpenGLSoftwareSettings
+
+[extension_OpenGLSoftwareSettings]
+
+;
+; Not currently used:
+;
+
+[extension.GeneralConfigData]
+MaximumNumberOfDevices = 1
+KeepExistingDriverEnabled = 1
+
+;
+; Source file information
+;
+
+[SourceDisksNames.x86]
+1 = %DiskId%,,,""
+
+[SourceDisksFiles]
+extension.sys  = 1
+
+[Strings]
+
+;
+; Non-Localizable Strings
+;
+
+REG_SZ         = 0x00000000
+REG_MULTI_SZ   = 0x00010000
+REG_EXPAND_SZ  = 0x00020000
+REG_BINARY     = 0x00000001
+REG_DWORD      = 0x00010001
+SERVICEROOT    = "System\CurrentControlSet\Services"
+
+;
+; Localizable Strings
+;
+
+DiskId       = "extension Installation DISK (VIDEO)"
+GraphAdap    = "Graphics Adapter"
+DualRTC    = "GBSSM DualRTC"
+extension       = "DualRTC Extension Driver"
