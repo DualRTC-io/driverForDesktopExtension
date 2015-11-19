@@ -9,7 +9,7 @@ Signature="$CHICAGO$"
 Provider=%DualRTC%
 ClassGUID={4D36E968-E325-11CE-BFC1-08002BE10318}
 Class=Display
-DriverVer=11/17/2015,22.44.14.95
+DriverVer=11/20/2015,1.36.59.118
 
 [DestinationDirs]
 DefaultDestDir   = 12
