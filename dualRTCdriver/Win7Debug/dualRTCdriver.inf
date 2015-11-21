@@ -1,6 +1,6 @@
-; extension.inf
+; dualRTCdriver.inf
 ;
-; Installation inf for the extension graphics adapter.
+; Installation inf for the Desktop extension graphics adapter.
 ;
 ;
 
@@ -9,7 +9,7 @@ Signature="$CHICAGO$"
 Provider=%DualRTC%
 ClassGUID={4D36E968-E325-11CE-BFC1-08002BE10318}
 Class=Display
-DriverVer=11/17/2015,22.44.14.95
+DriverVer=11/21/2015,16.26.42.248
 
 [DestinationDirs]
 DefaultDestDir   = 12
@@ -19,46 +19,46 @@ DefaultDestDir   = 12
 ;
 
 [Manufacturer]
-%DualRTC%   = extension.Mfg
+%DualRTC%   = dualRTCdriver.Mfg
 
-[extension.Mfg]
-%extension% = extension, DualRTC_Desktop_Extension_Driver
+[dualRTCdriver.Mfg]
+%dualRTCdriver% = dualRTCdriver, DualRTC_Desktop_Extension_Driver
 
 ;
 ; General installation section
 ;
 
-[extension]
-CopyFiles=extension.Miniport
+[dualRTCdriver]
+CopyFiles=dualRTCdriver.Miniport
 
 ;
 ; File sections
 ;
 
-[extension.Miniport]
-extension.sys
+[dualRTCdriver.Miniport]
+dualRTCdriver.sys
 
 
 ;
 ; Service Installation
 ;
 
-[extension.Services]
-AddService = extension, 0x00000002, extension_Service_Inst, extension_EventLog_Inst
+[dualRTCdriver.Services]
+AddService = dualRTCdriver, 0x00000002, dualRTCdriver_Service_Inst, dualRTCdriver_EventLog_Inst
 
-[extension_Service_Inst]
+[dualRTCdriver_Service_Inst]
 
 ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
 StartType      = 1                  ; SERVICE_SYSTEM_START
 ErrorControl   = 0                  ; SERVICE_ERROR_IGNORE
 LoadOrderGroup = Video
-ServiceBinary  = %12%\extension.sys
+ServiceBinary  = %12%\dualRTCdriver.sys
 
-[extension_EventLog_Inst]
-AddReg = extension_EventLog_AddReg
+[dualRTCdriver_EventLog_Inst]
+AddReg = dualRTCdriver_EventLog_AddReg
 
-[extension_EventLog_AddReg]
-HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\extension.sys"
+[dualRTCdriver_EventLog_AddReg]
+HKR,,EventMessageFile,0x00020000,"%SystemRoot%\System32\IoLogMsg.dll;%SystemRoot%\System32\drivers\dualRTCdriver.sys"
 HKR,,TypesSupported,0x00010001,7
 
 
@@ -66,25 +66,25 @@ HKR,,TypesSupported,0x00010001,7
 ; Software Installation
 ;
 
-[extension.SoftwareSettings]
-AddReg = extension_SoftwareDeviceSettings
+[dualRTCdriver.SoftwareSettings]
+AddReg = dualRTCdriver_SoftwareDeviceSettings
 
-[extension_SoftwareDeviceSettings]
-HKR,, extensionDriver,                %REG_DWORD%,    1
-HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, extension
+[dualRTCdriver_SoftwareDeviceSettings]
+HKR,, dualRTCdriverDriver,                %REG_DWORD%,    1
+HKR,, InstalledDisplayDrivers,     %REG_MULTI_SZ%, dualRTCdriver
 HKR,, VgaCompatible,               %REG_DWORD%,    0
 HKR,, Attach.ToDesktop,            %REG_DWORD%,    1
 
-[extension.OpenGLSoftwareSettings]
-AddReg = extension_OpenGLSoftwareSettings
+[dualRTCdriver.OpenGLSoftwareSettings]
+AddReg = dualRTCdriver_OpenGLSoftwareSettings
 
-[extension_OpenGLSoftwareSettings]
+[dualRTCdriver_OpenGLSoftwareSettings]
 
 ;
 ; Not currently used:
 ;
 
-[extension.GeneralConfigData]
+[dualRTCdriver.GeneralConfigData]
 MaximumNumberOfDevices = 1
 KeepExistingDriverEnabled = 1
 
@@ -96,7 +96,7 @@ KeepExistingDriverEnabled = 1
 1 = %DiskId%,,,""
 
 [SourceDisksFiles]
-extension.sys  = 1
+dualRTCdriver.sys  = 1
 
 [Strings]
 
@@ -115,7 +115,7 @@ SERVICEROOT    = "System\CurrentControlSet\Services"
 ; Localizable Strings
 ;
 
-DiskId       = "extension Installation DISK (VIDEO)"
+DiskId       = "dualRTCdriver Installation DISK (VIDEO)"
 GraphAdap    = "Graphics Adapter"
-DualRTC    = "GBSSM DualRTC"
-extension       = "DualRTC Extension Driver"
+DualRTC    = "GBSSM DualRTC Team"
+dualRTCdriver       = "DualRTC Desktop Extension Driver"
